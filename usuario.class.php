@@ -23,7 +23,7 @@ class Usuario {
 		$this->nome = $nome;
 		$this->email = $email;
 		$this->cpf = $cpf;
-		this->avatar = $avatar;
+		$this->avatar = $avatar;
 	}
     	
 	public function adicionar(){
