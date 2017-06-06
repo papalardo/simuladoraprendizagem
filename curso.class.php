@@ -1,21 +1,11 @@
 <?php
 class Curso {
-	private $idCur;
-	private $nomeCur;
-	
-	public function getIdCur(){
-		return $this->idCur;
+	private $id_cur;
+	private $nome_cur;
+	public function __set($atrib, $value){
+		$this->$atrib = $value;
 	}
-	
-	public function getNomeCur(){
-		return $this->nomeCur;
-	}
-	
-	public function setIdCur(){
-		return $this->idCur;
-	}
-	
-	public function setNomeCur(){
-		return $this->nomeCur;
+	public function __get($atrib){
+		return $this->$atrib;
 	}
 }
