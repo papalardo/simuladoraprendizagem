@@ -5,69 +5,50 @@ require_once './config/DB.php';
 class Usuario {
 	
 	protected $table = 'tb_usuarios';
-    protected $id = 'usuario_id';
-    private $nome;
-    private $email;
-    private $cpf;
-    private $avatar;
+	protected $id = 'usuario_id';
+	private $nome;
+	private $email;
+	private $cpf;
+	private $avatar;
 
-	public function setNome($nome){
+	public function __set($atrib, $value){
+		$this->$atrib = $value;
+	}
+	
+	public function __get($atrib){
+		return $this->$atrib;
+	}
+	
+	public function __construct($nome, $email, $cpf, $avatar){
 		$this->nome = $nome;
+		$this->email = $email;
+		$this->cpf = $cpf;
+		this->avatar = $avatar;
 	}
-    
-    public function getNome(){
-        return $this->nome;
-    }
-
-    public function setEmail($email){
-		 $this->email = $email;
-	}
-    
-    public function getEmail(){
-        return $this->email;
-    }
-    
-    public function setCpf($cpf){
-		 $this->cpf = $cpf;
-	}
-    
-    public function getCpf(){
-        return $this->cpf;
-    }
-    
-    public function setAvatar($avatar){
-		 $this->avatar = $avatar;
-	}
-    
-    public function getAvatar(){
-        return $this->avatar;
-    }
-
+    	
 	public function adicionar(){
-
 		$sql  = "INSERT INTO $this->table (nome,email,cpf,avatar) 
                                 VALUES    (:nome, :email, :cpf, :avatar)";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':nome', $this->getNome());
-        $stmt->bindParam(':email', $this->getEmail());
-        $stmt->bindParam(':cpf', $this->getCpf());
-        $stmt->bindParam(':avatar', $this->getAvatar());
+		$stmt->bindParam(':nome', $this->__get($nome));
+		$stmt->bindParam(':email', $this->__get($mail));
+		$stmt->bindParam(':cpf', $this->__get($cpf));
+		$stmt->bindParam(':avatar', $this->__get($avatar));
 		return $stmt->execute(); 
 
 	}
 
 	public function atualizar($id){
-
 		$sql  = "UPDATE $this->table SET nome = :nome,
-                                         email = :email 
-                                         cpf = :cpf
-                                         avatar = :avatar
-                                         WHERE $this->id = :id";
+					 email = :email 
+					 cpf = :cpf
+					 avatar = :avatar
+					 WHERE $this->id = :id";
 		$stmt = DB::prepare($sql);
-		$stmt->bindParam(':nome', $this->getNome());
-        $stmt->bindParam(':email', $this->getEmail());
-        $stmt->bindParam(':cpf', $this->getCpf());
-        $stmt->bindParam(':avatar', $this->getAvatar());
+		$stmt->bindParam(':nome', $this->__get($nome));
+		$stmt->bindParam(':email', $this->__get($mail));
+		$stmt->bindParam(':cpf', $this->__get($cpf));
+		$stmt->bindParam(':avatar', $this->__get($avatar));
 		$stmt->bindParam(':id', $id);
 		return $stmt->execute();
 
@@ -82,7 +63,7 @@ class Usuario {
 	}
 
 	public function listarTodos(){
-        $sql  = "SELECT * FROM $this->table";
+		$sql  = "SELECT * FROM $this->table";
 		$stmt = DB::prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
