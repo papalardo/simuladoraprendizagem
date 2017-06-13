@@ -1,63 +1,41 @@
-<?php
-	function __autoload($class_name){
-		require_once 'models/' . strtolower($class_name) . '.class.php';
-	}
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="libs/css/main.css">
+<style>
 
+</style>
+</head>
 
-$usuario = new Usuario();
+<body>
 
-?>
-
-
-    <!DOCTYPE HTML>
-<?php include 'index.php';
-
-        //Chamar paginas 
-        if(isset($_GET['acao']) && $_GET['acao'] == 'adicionar'){ include 'tpl/horario/add.horario.php'; }
-        if(isset($_GET['acao']) && $_GET['acao'] == 'editar'){ include 'tpl/horario/edit.horario.php';   } 
-        if(empty($_GET)) { include 'tpl/index.php'; } 
-          
-          
-        
-        if(isset($_POST['cadastrar'])){
-
-            
-			$usuario->setNome($_POST['nome']);
-			$usuario->setEmail($_POST['email']);
-			$usuario->setCpf($_POST['cpf']);
-
-			# Insert
-			if($usuario->adicionar()){
-				 echo msg_erro("success","Feito!","Horario cadastrado com sucesso!"); 
-			}
-
-		} # Termina Cadastro
-
-		
-		if(isset($_POST['atualizar'])){
-
-			$horario_inicio  = $_POST['horario_inicio'];
-			$horario_fim  = $_POST['horario_fim'];
-
-			$usuario->setHoraInicial($horario_inicio);
-			$usuario->setHoraFinal($horario_fim);
-
-			if($usuario->atualizar($id)){
-				echo msg_erro("success","Feito!","Horario alterado com sucesso!");    
-			}
-
-		} #Termina Update
-		
-
-        if(isset($_GET['acao']) && $_GET['acao'] == 'deletar') {
-
-			$id = (int)$_GET['id'];
-			if($usuario->deletar($id)){
-                echo msg_erro("success","Feito!","Horario deletado!"); 
-				include 'tpl/horario/list.horario.php';
-                
-			}
-
-		}//Fecha Delete
-        
-		?>
+<div class="container">
+<div class="col-md-3 col-md-offset-2 login">
+<div class="form-input">
+<form>
+<div class="row">
+<div class="col-md-8">
+    <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" placeholder="Entre com o e-mail">
+  </div>  
+    <div class="form-group">
+    <label for="senha">Senha</label>
+    <input type="password" class="form-control" placeholder="Entre com a senha">
+  </div>  
+</div>
+<div class="col-md-3">
+<img src="libs/imgs/perfil.png" class="foto-perfil img-rounded">        
+</div>
+</div>
+  <button type="submit" class="btn btn-default col-md-offset-3">Login</button>
+    </form>    
+</div>
+</div>
+<div class="col-md-2">
+<img src="libs/imgs/boy.png" width="300px">
+</div>
+</div>
+    
+</body>
+</html>

@@ -1,0 +1,54 @@
+html { 
+  background: url(image/path) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+body {
+    margin: 0;
+    margin-right: 0 auto;
+    margin-left: 0 auto;
+    background-color: #73BCDF;
+   /* background-image:url("img/background-login.jpg");*/
+    background-repeat: no-repeat;
+    background-size: 80% 100%;
+}
+.login {
+    background: #fff;
+    position: relative;
+    width: 500px;
+    height: 250px;
+    top: 20px;
+    border: 2px;
+    border-radius: 50px;
+    z-index: 999
+}
+   
+.login:after{
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 50px solid #fff;
+
+    top: 60%;
+    left: 100%;
+}
+.form-input {
+    top: 30px;
+    position: relative;
+    left:20px;
+}
+    .container {
+        top:30px;
+        position: relative;
+
+    }
+    .foto-perfil{
+        width: 100px;
+        top: 20px;
+        position: relative
+    }
