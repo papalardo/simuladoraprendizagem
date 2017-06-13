@@ -1,5 +1,69 @@
 <?php
 
+// Classe Usuario
+// Autor: Pablo (modificada pelo professor glauco) 
+// A classe Usuario é o modelo a ser seguido para construir as outras classes
+class Usuario {
+	protected $table = 'tb_usuarios'; // nome da tabela do banco de dados
+	protected $id = 'usuario_id'; // atributo chave primária da tabela do banco de dados
+	
+	// atributos da classe de acordo com a tabela, não precisa usar os mesmos nomes da tabela.
+	private $nome;
+	private $email;
+	private $cpf;
+	private $avatar;
+	
+	// métodos gets e sets
+	public function __set($atrib, $value) {
+		$this->$atrib = $value;
+	}
+	public function __get($atrib) {
+		return $this->$atrib;
+	}
+
+	// métodos dos cruds
+	public function adicionar() {
+		$sql = "INSERT INTO $this->table (nome,email,cpf,avatar)
+			VALUES    (:nome, :email, :cpf, :avatar)";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':nome', $this->nome);
+		$stmt->bindParam ( ':email', $this->email );
+		$stmt->bindParam ( ':cpf', $this->cpf );
+		$stmt->bindParam ( ':avatar', $this->avatar );
+		return $stmt->execute();
+	}
+	public function atualizar($id) {
+		$sql = "UPDATE $this->table SET nome = :nome,
+			email = :email, cpf=:cpf, avatar = :avatar WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':nome', $this->nome );
+		$stmt->bindParam ( ':email', $this->email );
+		$stmt->bindParam ( ':cpf', $this->cpf );
+		$stmt->bindParam ( ':avatar', $this->avatar );
+		$stmt->bindParam ( ':id', $this->id );
+		return $stmt->execute ();
+	}
+	public function procurar($id) {
+		$sql = "SELECT * FROM $this->table WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
+		$stmt->execute ();
+		return $stmt->fetch ();
+	}
+	public function listarTodos() {
+		$sql = "SELECT * FROM $this->table";
+		$stmt = DB::prepare ( $sql );
+		$stmt->execute ();
+		return $stmt->fetchAll ();
+	}
+	public function deletar($id) {
+		$sql = "DELETE FROM $this->table WHERE $this->id = :id";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
+		return $stmt->execute ();
+	}
+}
+
 // Classe Atividades do simulador
 // Autor: 
 class Atividade {
@@ -15,41 +79,19 @@ class Atividade {
 		$this->pontuacao_asm = $pontuacao_asm;
 		$this->imagem_asm = $imagem_asm;
 	}
-	function getId_asm() {
-		return $this->id_asm;
+	
+	public function __set($atrib, $value) {
+		$this->$atrib = $value;
 	}
-	function getNome_asm() {
-		return $this->nome_asm;
+	public function __get($atrib) {
+		return $this->$atrib;
 	}
-	function getTempo_asm() {
-		return $this->tempo_asm;
-	}
-	function getPontuacao_asm() {
-		return $this->pontuacao_asm;
-	}
-	function getImagem_asm() {
-		return $this->imagem_asm;
-	}
-	function setId_asm($id_asm) {
-		$this->id_asm = $id_asm;
-	}
-	function setNome_asm($nome_asm) {
-		$this->nome_asm = $nome_asm;
-	}
-	function setTempo_asm($tempo_asm) {
-		$this->tempo_asm = $tempo_asm;
-	}
-	function setPontuacao_asm($pontuacao_asm) {
-		$this->pontuacao_asm = $pontuacao_asm;
-	}
-	function setImagem_asm($imagem_asm) {
-		$this->imagem_asm = $imagem_asm;
-	}
+	
 }
 
 // classe Componente curricular
 // Autor: 
-class comp_curc {
+class ComponenteCurricular {
 	private $id_ccr;
 	private $nome_ccr;
 	private $cargaHoraria_ccr;
@@ -74,9 +116,9 @@ class comp_curc {
 	}
 }
 
-// Classe Compet�ncias Norteadoras
+// Classe Competências Norteadoras
 // Autor:
-class Comp_Nort {
+class CompetenciaNorteadora {
 	private $idCnr;
 	private $nomeCnr;
 	public function getIdCnr() {
@@ -93,7 +135,7 @@ class Comp_Nort {
 	}
 }
 
-// Classe Cursos
+// Classe Curso
 // Autor: 
 class Curso {
 	private $id_cur;
@@ -117,78 +159,7 @@ class Curso {
 	}
 }
 
-// Classe Usuario
-// Autor: 
-class Usuario {
-	protected $table = 'tb_usuarios';
-	protected $id = 'usuario_id';
-	private $nome;
-	private $email;
-	private $cpf;
-	private $avatar;
-	public function setNome($nome) {
-		$this->nome = $nome;
-	}
-	public function getNome() {
-		return $this->nome;
-	}
-	public function setEmail($email) {
-		$this->email = $email;
-	}
-	public function getEmail() {
-		return $this->email;
-	}
-	public function setCpf($cpf) {
-		$this->cpf = $cpf;
-	}
-	public function getCpf() {
-		return $this->cpf;
-	}
-	public function setAvatar($avatar) {
-		$this->avatar = $avatar;
-	}
-	public function getAvatar() {
-		return $this->avatar;
-	}
-	public function adicionar() {
-		$sql = "INSERT INTO $this->table (nome,email,cpf,avatar)
-			VALUES    (:nome, :email, :cpf, :avatar)";
-		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( ':nome', $this->getNome () );
-		$stmt->bindParam ( ':email', $this->getEmail () );
-		$stmt->bindParam ( ':cpf', $this->getCpf () );
-		$stmt->bindParam ( ':avatar', $this->getAvatar () );
-		return $stmt->execute ();
-	}
-	public function atualizar($id) {
-		$sql = "UPDATE $this->table SET HORA_INICIAL = :horainicio,
-			HORA_FINAL = :horafim WHERE $this->id = :id";
-		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( ':horainicio', $this->hora_inicial );
-		$stmt->bindParam ( ':horafim', $this->hora_final );
-		$stmt->bindParam ( ':id', $this->$id );
-		return $stmt->execute ();
-	}
-	public function procurar($id) {
-		$sql = "SELECT * FROM $this->table WHERE $this->id = :id";
-		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
-		$stmt->execute ();
-		return $stmt->fetch ();
-	}
-	public function listarTodos() {
-		$sql = "SELECT * FROM $this->table";
-		$stmt = DB::prepare ( $sql );
-		$stmt->execute ();
-		return $stmt->fetchAll ();
-	}
-	public function deletar($id) {
-		$sql = "DELETE FROM $this->table WHERE $this->id = :id";
-		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
-		return $stmt->execute ();
-	}
-}
+
 // Classe Item
 // Autor: 
 class Item {
@@ -284,7 +255,7 @@ class Perfil {
 
 // Classe Realizar Ciclo
 // Autor
-class Relz_Cicl {
+class RealizarCiclo {
 		private $idRcc;
 		private $pontuacaoAlcancadaRcc;
 	
