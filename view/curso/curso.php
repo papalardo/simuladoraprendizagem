@@ -5,7 +5,7 @@
 		<title>Simulador</title>
 	</head>
 	<body>
-		<form action="dados.php" method="post">
+		<form action="" method="post">
 			<h2>Curso</h2>
 			Nome do Curso: 
 			<input type="text" name="nomecurso">

@@ -5,7 +5,7 @@
 		<title>Competencias</title>
 	</head>
 	<body>
-		<form action="dados.php" method="post">
+		<form action="" method="post">
 			<h2>Competencias Noreteadoras</h2>
 			Informe a competencia: 
 			<input type="text" size="1px" name="nomecurso">	<br><br>
