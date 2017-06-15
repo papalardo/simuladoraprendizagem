@@ -7,28 +7,26 @@ require_once './model/classes.php';
 $login = new Usuario();
 
 
-
 if(empty($_GET['acao'])) {
-    include base_url('view/login/index.php');
+    #include base_url('view/login/index.php');
+    include 'view/login/index.php';
  }
 
-if ( isset($_GET['acao']) && ($_GET['acao'] == 'panel')) { include 'tpl/login/login.panel.php' ;}
-if ( isset($_GET['acao']) && ($_GET['acao'] == 'foto')) { include 'tpl/login/foto.usuario.php' ;}
-if ( isset($_GET['acao']) && ($_GET['acao'] == 'edit')) { include 'tpl/usuario/edit.usuario.php' ;}
+if (isset($_GET['acao']) && $_GET['acao'] == 'panel') { include 'view/login/panel.php' ;}
+if (isset($_GET['acao']) && $_GET['acao'] == 'foto') { include 'tpl/login/foto.usuario.php' ;}
+if (isset($_GET['acao']) && $_GET['acao'] == 'edit') { include 'tpl/usuario/edit.usuario.php' ;}
 
 
-if (isset($_POST['entrar']))
-{
+if (isset($_POST['entrar'])){
+
 // resgata variáveis do formulário
 $username = isset($_POST['username']) ? $_POST['username'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-if (empty($username) || empty($password))
-{
-    echo "Dados em branco";
+if (empty($username) || empty($password)){
+    #echo "Dados em branco";
     #echo msg_erro("danger","ERRO","Digite todos os dados");
-    exit;
-}
+    } else {
 
 // cria o hash da senha
 //$passwordHash = make_hash($password);
@@ -54,26 +52,30 @@ if (empty($username) || empty($password))
                     $_SESSION['nome_usu'] = $user->nome_usu;
                     $_SESSION['email_usu'] = $user->email_usu;
                     $_SESSION['sexo_usu'] = $user->sexo_usu;
-
                     //Depois de setar as sessions, redireciona para o panel
+
                     redirect('index.php?pag=login&acao=panel');
                 } else {
                     // Se a senha for diferente..
-                    echo 'Senha incorreta';
+                    setcookie('msg',"Senha invalida");
+                    redirect('index.php?pag=login');
                 }
             } else {
                 //Se nao achou o usuario..
-                echo "Usuario nao cadastrado";
+                setcookie('msg',"Usuario nao cadastrado");
+                redirect('index.php?pag=login');
             }
 
 }
-
-if (isset($_GET['acao']) && ($_GET['acao'] == 'logout')) {
-    $_SESSION['logged_in'] = false;
-    session_destroy();
-    echo "<meta http-equiv=\"refresh\" content=\"0;URL=Login\">";
 }
 
+if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
+    session_destroy();
+    setcookie('msg',"Deslogado!");
+    redirect('index.php?pag=login');
+}
 
+//Sempre destroi o cookie de mensagens
+#unset($_COOKIE['msg']);
 
 ?>
