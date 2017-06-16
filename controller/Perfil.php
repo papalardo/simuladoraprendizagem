@@ -2,7 +2,7 @@
 
 /*
 
-Carrega o model das classes
+Carrega o model com as classes
 
 */
 require_once base_url('model/classes.php');
@@ -47,7 +47,8 @@ switch ( $_GET['acao'] ) {
 Execução dos métodos
 
 */
-if (isset($_POST)) {
+
+if (isset($_POST)) { #Quando algum $_POST for lançado, será verificado qual e executará a função um método (funções logo abaixo).
     switch (isset($_POST['acao'])){
         case 'novo':
             adicionar();
@@ -101,6 +102,5 @@ $perfil = new Perfil();
                 }
 
         }
-        //Tudo feito, redireciona de volta à página, evitando looping de requisições
-        redirect('index.php?pag=perfil');
+        redirect('index.php?pag=perfil'); #Tudo feito, redireciona de volta à página, evitando looping de requisições.
 } ?>

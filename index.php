@@ -10,7 +10,7 @@ session_start();
 //So mostra erros se o sistema estiver em desenvolvimento
 if (SYSTEM_STATUS == 'fase_testae'){
     error_reporting(1);
-    ini_set("display_errors", 1 );
+    ini_set("display_errors",1);
 }
 
 ?>
