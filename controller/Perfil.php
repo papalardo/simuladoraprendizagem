@@ -1,85 +1,106 @@
 <?php
 
+/*
 
-require_once './model/classes.php';
+Carrega o model das classes
 
+*/
+require_once base_url('model/classes.php');
+
+/*
+
+Cria novo objeto
+
+*/
 $perfil = new Perfil();
 
 
-//GET de views abaixo ------------------->
-if(empty($_GET['acao'])) {
-    include 'view/perfil/index.php';
- }
+/*
 
+Carrega as views de acordo com o GET['acao']
 
-if (isset($_GET['acao']) && $_GET['acao'] == 'listar') {
-    $listar = $perfil->listarTodos();
-    include 'view/perfil/listar.php' ;
+*/
+if ( empty($_GET['acao']) ) { $_GET['acao'] = 'index'; }
+
+switch ( $_GET['acao'] ) {
+    case 'index':
+        include 'view/perfil/index.php';
+        break;
+    case 'listar':
+        $listar = $perfil->listarTodos();
+        include 'view/perfil/listar.php' ;
+        break;
+    case 'editar':
+        $id = $_GET['id'];
+        $resultado = $perfil->procurar($id);
+        include 'view/perfil/editar.php';
+        break;
+     case 'deletar':
+        $id = $_GET['id'];
+        if ($perfil->deletar($id)){ setcookie('msg',"Deletado!"); }
+        redirect('index.php?pag=perfil&acao=listar');
+        break;
 }
 
-if (isset($_GET['acao']) && $_GET['acao'] == 'editar') {
-    $id = $_GET['id'];
-    $resultado = $perfil->procurar($id);
-    include 'view/perfil/editar.php' ;
+/*
+
+Execução dos métodos
+
+*/
+if (isset($_POST)) {
+    switch (isset($_POST['acao'])){
+        case 'novo':
+            adicionar();
+            break;
+        case 'update':
+            atualizar();
+            break;
+    }
 }
 
 
+/*
 
-//GETs de ações abaixo ------------------->
+Metodos
 
-if (isset($_POST['novo'])){
-
-// resgata variáveis do formulário
-$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
-
-if (empty($descricao)){
-    setcookie('msg',"Dados em branco!");
+*/
+function atualizar(){
+$perfil = new Perfil(); #Cria novo objeto
+$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
+if (empty($descricao)){ #Verifica se os campos estão preenchidos
+    setcookie('msg',"Dados em branco!"); #Se não tiver, armazena mensagem para mostrar.
     } else {
-            // o html special e strip_tags serve para evitar a tentativa de sql_eject no BD
-            $descricao  = htmlspecialchars(strip_tags($_POST['descricao']));
-            $perfil->__set('descricao', $descricao);
-
-            //Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
-            if ($perfil->adicionar()){
-                setcookie('msg',"Novo perfil cadastrado!");
+            $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
+            $perfil->__set('descricao', $descricao); #Pega o que foi digitado e muda seu valor no objeto
+            $id = $_GET['id']; #Pega o ID para localizar no Banco de dados
+            if ($perfil->atualizar($id)){ #Aqui faz o insert e seta um cookie para mostrar depois, dependendo da situação (se deu certo ou não)
+                setcookie('msg',"Dados atualizados!"); # Deu bom
             } else {
-                setcookie('msg',"Ocorreu algum erro..");
+                setcookie('msg',"Ocorreu algum erro.."); # Deu ruim
             }
 
     }
-    //Tudo feito, redireciona de volta à página, evitando looping de requisições
-    redirect('index.php?pag=perfil');
-}
-
-if (isset($_GET['acao']) && $_GET['acao'] == 'deletar') {
-    $id = $_GET['id'];
-    if ($perfil->deletar($id)){ setcookie('msg',"Deletado!"); }
-    redirect('index.php?pag=perfil&acao=listar');
-}
-
-if (isset($_POST['update'])){
-
-// resgata variáveis do formulário
-$descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
-
-if (empty($descricao)){
-    setcookie('msg',"Dados em branco!");
-    } else {
-            // o html special e strip_tags serve para evitar a tentativa de sql_eject no BD
-            $descricao  = htmlspecialchars(strip_tags($_POST['descricao']));
-            $perfil->__set('descricao', $descricao);
-            $id = $_GET['id'];
-            //Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
-            if ($perfil->atualizar($id)){
-                setcookie('msg',"Dados atualizados!");
-            } else {
-                setcookie('msg',"Ocorreu algum erro..");
-            }
-
-    }
-    //Tudo feito, redireciona de volta à página, evitando looping de requisições
-    redirect('index.php?pag=perfil&acao=editar&id='.$id);
+   redirect('index.php?pag=perfil&acao=editar&id='.$id);  #Tudo feito, redireciona de volta à página, evitando looping de requisições.
 }
 
 
-?>
+function adicionar(){
+$perfil = new Perfil();
+    // resgata variáveis do formulário
+    $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
+    if (empty($descricao)){ #Verifica se os campos estão preenchidos
+        setcookie('msg',"Dados em branco!"); #Se não tiver, armazena mensagem para mostrar.
+        } else {
+                $descricao  = htmlspecialchars(strip_tags($_POST['descricao'])); #O html special e strip_tags serve para evitar a tentativa de sql_eject no BD
+                $perfil->__set('descricao', $descricao);
+
+                if ($perfil->adicionar()){ #Aqui faz o insert e seta um cookie para mostrar depois dependendo da situação (se deu certo ou não)
+                    setcookie('msg',"Novo perfil cadastrado!"); #Deu bom
+                } else {
+                    setcookie('msg',"Ocorreu algum erro.."); #Deu ruim
+                }
+
+        }
+        //Tudo feito, redireciona de volta à página, evitando looping de requisições
+        redirect('index.php?pag=perfil');
+} ?>
