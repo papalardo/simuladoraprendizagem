@@ -218,7 +218,7 @@ class Item {
 class Perfil {
 
 		private $table = 'tb_perfil';
-		private $id = 'perfil_id';
+		private $id = 'id_per';
 		private $descricao;
 
 		public function __set($atrib, $value){
@@ -229,24 +229,23 @@ class Perfil {
 			return $this->atrib;
 		}
 
-		public function __construct(){
+		/*public function __construct(){
 			$this->descricao = "";
-		}
+		}*/
 
 		/*public function  __construct($descricao){
 			$this->descricao = $descricao;
 		}*/
 
 		public function adicionar() {
-	          $sql = "INSERT INTO $this->table (descricao)
-			VALUES    (:descricao)";
-	          $stmt = DB::prepare ( $sql );
-	          $stmt->bindParam ( ':descricao', $this->__get ( $descricao ) );
-	          return $stmt->execute ();
+	           $sql = "INSERT INTO $this->table (desc_per) VALUES (:descricao)";
+	          $stmt = DB::prepare ($sql);
+	          $stmt->bindParam (':descricao', $this->__get('descricao'));
+	           return $stmt->execute();
         }
 
 		public function atualizar($id){
-			$sql  = "UPDATE $this->table SET descricao = :descricao WHERE $this->id = :id";
+			$sql  = "UPDATE $this->table SET desc_per = :descricao WHERE $this->id = :id";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam(':descricao', $this->__get($descricao));
 			$stmt->bindParam(':id', $id, PDO::PARAM_INT);

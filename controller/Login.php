@@ -1,6 +1,5 @@
 <?php
 
-/* function __autoload($class_name){  require_once './model/classes.php';  } */
 
 require_once './model/classes.php';
 
