@@ -151,22 +151,22 @@ body {
 						<li class="active">
 							<a href="#">
 							<i class="glyphicon glyphicon-home"></i>
-							Overview </a>
+							Inicio </a>
 						</li>
 						<li>
 							<a href="#">
 							<i class="glyphicon glyphicon-user"></i>
-							Account Settings </a>
+							Gerenciar Conta </a>
 						</li>
 						<li>
 							<a href="#" target="_blank">
 							<i class="glyphicon glyphicon-ok"></i>
-							Tasks </a>
+							Tarefas </a>
 						</li>
 						<li>
 							<a href="#">
 							<i class="glyphicon glyphicon-flag"></i>
-							Help </a>
+							Ajuda </a>
 						</li>
 					</ul>
 				</div>

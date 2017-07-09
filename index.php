@@ -5,14 +5,17 @@
 Includes necessários
 
 */
+session_start(); #Abrir session
 
 require_once 'includes/functions.php';
 require_once 'config/DB.php';
 require_once 'model/classes.php';
 
 
-session_start(); #Abrir session
 
+if ( ! $_GET ){
+    redirect('?pag=login');
+}
 
 if (SYSTEM_STATUS == 'em_contrucao'){ #So mostra erros se o sistema estiver em desenvolvimento
     ini_set('display_errors', 'On');
@@ -51,8 +54,7 @@ include base_url('view/tpl/menu-top.php'); */
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Perfil <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -60,6 +62,15 @@ include base_url('view/tpl/menu-top.php'); */
             <li><a href="<?= base_url('index.php?pag=perfil')?>">Adicionar</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<?= base_url('index.php?pag=perfil&acao=listar')?>">Listar</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"></a></li>
+            <li><a href="<?= base_url('index.php?pag=usuario')?>">Adicionar</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="<?= base_url('index.php?pag=usuario&acao=listar')?>">Listar</a></li>
           </ul>
         </li>
       </ul>
@@ -99,6 +110,7 @@ function verifica_logon(){
     }
 }
 
+ob_end_flush();
 
 ?>
 

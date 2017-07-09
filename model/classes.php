@@ -9,10 +9,13 @@ class Usuario {
 
 	// atributos da classe de acordo com a tabela, não precisa usar os mesmos nomes da tabela.
 	private $nome;
+    private $sobrenome;
 	private $email;
 	private $username;
-	private $password;
+	private $senha;
 	private $cpf;
+	private $sexo;
+	private $perfil;
 	private $avatar;
 
 	// métodos gets e sets
@@ -25,35 +28,76 @@ class Usuario {
 
 	// métodos dos cruds
 	public function adicionar() {
-		$sql = "INSERT INTO $this->table (nome,email,cpf,avatar)
-			VALUES    (:nome, :email, :cpf, :avatar)";
+		$sql = "INSERT INTO $this->table (nome_usu,sobrenome_usu,email_usu,cpf_usu,sexo_usu, TB_PERFIL_id_per, senha_usu,username_usu )
+                                VALUES    (:nome, :sobrenome, :email,:cpf,:sexo,:perfil,:senha,:username)";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':nome', $this->nome);
+		$stmt->bindParam ( ':sobrenome', $this->sobrenome);
 		$stmt->bindParam ( ':email', $this->email );
+		$stmt->bindParam ( ':username', $this->username);
+		$stmt->bindParam ( ':senha', $this->senha);
 		$stmt->bindParam ( ':cpf', $this->cpf );
-		$stmt->bindParam ( ':avatar', $this->avatar );
+		$stmt->bindParam ( ':sexo', $this->sexo);
+		$stmt->bindParam ( ':perfil', $this->perfil);
+		#$stmt->bindParam ( ':avatar', $this->avatar );
 		return $stmt->execute();
 	}
 	public function atualizar($id) {
-		$sql = "UPDATE $this->table SET nome = :nome,
-			email = :email, cpf=:cpf, avatar = :avatar WHERE $this->id = :id";
+		$sql = "UPDATE $this->table SET  nome_usu = :nome,
+			                             sobrenome_usu = :sobrenome,
+                                         email_usu = :email,
+                                         username_usu = :username,
+                                         senha_usu = :senha,
+                                         cpf_usu = :cpf,
+                                         sexo_usu = :sexo,
+                                         TB_PERFIL_id_per = :perfil
+                                         WHERE $this->id = :id";
 		$stmt = DB::prepare ( $sql );
-		$stmt->bindParam ( ':nome', $this->nome );
+		$stmt->bindParam ( ':nome', $this->nome);
+		$stmt->bindParam ( ':sobrenome', $this->sobrenome);
 		$stmt->bindParam ( ':email', $this->email );
+		$stmt->bindParam ( ':username', $this->username);
+		$stmt->bindParam ( ':senha', $this->senha);
 		$stmt->bindParam ( ':cpf', $this->cpf );
-		$stmt->bindParam ( ':avatar', $this->avatar );
-		$stmt->bindParam ( ':id', $this->id );
+		$stmt->bindParam ( ':sexo', $this->sexo);
+		$stmt->bindParam ( ':perfil', $this->perfil);
+		$stmt->bindParam ( ':id', $id);
+        #$stmt->bindParam ( ':avatar', $avatar );
 		return $stmt->execute ();
 	}
+
+    /*
+
+    Metodo procurar($id) é utilizado para usar o ID, neste caso, procurar na coluna $this->id
+
+    */
 	public function procurar($id) {
-		$sql = "SELECT * FROM $this->table WHERE $this->id = :id";
+		$sql = "SELECT * FROM $this->table INNER JOIN tb_perfil ON ( $this->table.TB_PERFIL_id_per = tb_perfil.id_per) WHERE $this->id = :id";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':id', $id, PDO::PARAM_INT );
-		$stmt->execute ();
-		return $stmt->fetch ();
+		$stmt->execute();
+        return $stmt->fetch();
 	}
+
+    /*
+
+    Metodo procurarEm( $coluna, $dado ) e utilizado para escolher a coluna ao qual deseja procurar o dado.
+
+    */
+
+    public function procurarEm($coluna, $dado){
+        $sql = "SELECT * FROM $this->table
+                INNER JOIN tb_perfil ON ( $this->table.TB_PERFIL_id_per = tb_perfil.id_per)
+                WHERE $coluna = :dado";
+		$stmt = DB::prepare ( $sql );
+		$stmt->bindParam ( ':dado', $dado );
+		$stmt->execute();
+        return $stmt->fetch();
+
+    }
+
 	public function listarTodos() {
-		$sql = "SELECT * FROM $this->table";
+		$sql = "SELECT * FROM $this->table INNER JOIN tb_perfil ON ( $this->table .TB_PERFIL_id_per = tb_perfil.id_per)";
 		$stmt = DB::prepare ( $sql );
 		$stmt->execute ();
 		return $stmt->fetchAll ();
@@ -67,7 +111,7 @@ class Usuario {
 
     public function procurarPorUsername() {
         $username = $this->__get('username');
-		$sql = "SELECT * FROM $this->table WHERE nome_usu = :username";
+		$sql = "SELECT * FROM $this->table WHERE username_usu = :username";
 		$stmt = DB::prepare ( $sql );
 		$stmt->bindParam ( ':username', $username);
 		$stmt->execute();
@@ -299,3 +343,5 @@ class RealizarCiclo {
 			return $this->pontuacaoAlcancadaRcc;
 		}
 }
+
+?>

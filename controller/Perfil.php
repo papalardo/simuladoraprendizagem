@@ -14,7 +14,6 @@ Cria novo objeto
 */
 $perfil = new Perfil();
 
-
 /*
 
 Carrega as views de acordo com o GET['acao']
