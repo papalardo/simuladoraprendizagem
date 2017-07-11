@@ -344,4 +344,49 @@ class RealizarCiclo {
 		}
 }
 
+/*
+
+Classe para templates - em TESTE
+
+*/
+
+class Template {
+    protected $template, $view, $data;
+
+    public function __construct($template, $view = '', $data = array()) {
+        $this->view = $view;
+        $this->template = $template;
+        $this->data = $data;
+    }
+
+    public function getView(){
+        if(file_exists($this->view)){
+            return $this->view;
+        }
+            return 'View nao encontrada';
+    }
+
+    public function render() {
+        if(file_exists($this->template)){
+            //Extracts vars to current view scope
+            $this->data['conteudo'] = $this->getView();
+            extract($this->data);
+
+            //Starts output buffering
+            ob_start();
+
+            //Includes contents
+            include $this->template;
+            $buffer = ob_get_contents();
+            @ob_end_clean();
+
+            //Returns output buffer
+            return $buffer;
+        } else {
+            //Throws exception
+            echo 'OPS! Template não encontrado';
+        }
+    }
+}
+
 ?>

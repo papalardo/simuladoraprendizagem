@@ -14,6 +14,17 @@ Cria novo objeto
 */
 $login = new Usuario();
 
+/*
+
+Carrega o Template
+
+*/
+
+#$data = array('title' => 'Simulador de logistica', 'content' => '');
+#$tmpl = new Template('view/tpl/login.php', $data);
+#echo $tmpl->render();
+
+
 
 /*
 
@@ -21,23 +32,35 @@ Carrega as views de acordo com o GET['acao']
 
 */
 
-
-        verifica_logon();
+#verifica_logon();
 
 
 if ( empty($_GET['acao']) ) { $_GET['acao'] = 'index'; }
 
 switch ( $_GET['acao'] ) {
     case 'index':
+        $tmpl = new Template('templates/login.php');
+        echo $tmpl->render();
         include 'view/login/index.php';
         break;
     case 'panel':
-        include 'view/login/panel.php' ;
+        $tmpl = new Template('templates/painel.tpl','view/login/panel.php', array('titulo' => 'Painel usuario'));
+        echo $tmpl->render();
+        #include 'view/login/panel.php' ;
         break;
     case 'logout':
         session_destroy(); #Destroi a sessão
         setcookie('msg',"Deslogado!"); #Guarda mensagem
-        redirect('index.php?pag=login'); #Redireciona para página de login
+        redirect('?pag=login'); #Redireciona para página de login
+        break;
+    case 'login':
+        $resposta = autenticar();
+        if ( $resposta === TRUE ){ # Se for autenticado com sucesso, redireciona para o painel
+            redirect('?pag=login&acao=panel');
+        } else {
+            setcookie('msg', $resposta );
+            redirect('?pag=login'); #Se não for autenticado, redireciona para a tela de login
+        }
         break;
 }
 
@@ -45,7 +68,7 @@ switch ( $_GET['acao'] ) {
 
 Execução dos métodos
 
-*/
+
 
 if (isset($_POST)) { #Quando algum $_POST for lançado, será verificado qual e executará a função um método (funções logo abaixo).
     switch (isset($_POST['acao'])){
@@ -54,6 +77,8 @@ if (isset($_POST)) { #Quando algum $_POST for lançado, será verificado qual e 
             break;
     }
 }
+
+*/
 
 
 /*
@@ -68,7 +93,7 @@ function autenticar(){
     $password = isset($_POST['password']) ? $_POST['password'] : '';
 
     if (empty($username) || empty($password)){ #Verifica se os dados estão todo preenchidos
-        setcookie('msg','Campos em branco!');
+        return 'Campos em branco.';
         } else {
                 /* Cria o HASH MD5 da senha */
                 #$passwordHash = md5($password);
@@ -90,17 +115,15 @@ function autenticar(){
                         $_SESSION['nome_usu'] = $user->nome_usu;
                         $_SESSION['email_usu'] = $user->email_usu;
                         $_SESSION['sexo_usu'] = $user->sexo_usu;
-
-                        redirect('index.php?pag=login&acao=panel'); #Depois de setar as sessions, redireciona para o panel
+                        return TRUE;
+                        #redirect('?pag=login&acao=panel'); #Depois de setar as sessions, redireciona para o panel
                     } else {
                         // Se a senha for diferente..
-                        setcookie('msg',"Senha invalida");
-                        redirect('index.php?pag=login');
+                        return 'Senha inválida.';
                     }
                 } else {
                     //Se nao achou o usuario..
-                    setcookie('msg',"Usuario nao cadastrado");
-                    redirect('index.php?pag=login');
+                    return 'Usuario não cadastrado.';
                 }
 
     }

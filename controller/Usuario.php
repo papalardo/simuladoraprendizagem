@@ -15,27 +15,34 @@ Cria novo objeto
 $usuario = new Usuario();
 $perfil = new Perfil();
 
-
 /*
 
 Carrega as views de acordo com o GET['acao']
 
 */
+
 if ( empty($_GET['acao']) ) { $_GET['acao'] = 'index'; }
 
 switch ( $_GET['acao'] ) {
     case 'index':
-        $perfis = $perfil->listarTodos();
-        include 'view/usuario/index.php';
+        #$perfis = $perfil->listarTodos();
+        #include 'view/usuario/index.php';
+        $data = array('titulo' => 'Painel usuario',
+                      'perfis' => $perfil->listarTodos());
+        $tmpl = new Template('templates/painel.tpl','view/usuario/index.php', $data);
+        echo $tmpl->render();
         break;
     case 'listar':
-        $listar = $usuario->listarTodos();
-        include 'view/usuario/listar.php' ;
+        #$listar = $usuario->listarTodos();
+        $data = array('titulo' => 'Painel usuario',
+                      'listar' => $usuario->listarTodos());
+        $tmpl = new Template('templates/painel.tpl','view/usuario/listar.php', $data);
+        echo $tmpl->render();
+        #include 'view/usuario/listar.php' ;
         break;
     case 'editar':
         $id = $_GET['id'];
         $resultado = $usuario->procurar($id);
-        $perfis = $perfil->listarTodos();
         include 'view/usuario/editar.php';
         break;
     case 'deletar':

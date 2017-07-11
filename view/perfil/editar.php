@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Adicionar Perfil</div>
         <div class="panel-body">
-            <form action="" method="post" class="form-horizontal">
+            <form action="?pag=perfil&acao=atualizar&id=<?= $_GET['id']?>" method="post" class="form-horizontal">
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Descricao</label>
                     <div class="col-sm-8">
