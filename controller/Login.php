@@ -44,7 +44,7 @@ switch ( $_GET['acao'] ) {
         include 'view/login/index.php';
         break;
     case 'panel':
-        $tmpl = new Template('templates/painel.tpl','view/login/panel.php', array('titulo' => 'Painel usuario'));
+        $tmpl = new Template('templates/template.tpl','view/login/panel.php', array('titulo' => 'Painel usuario'));
         echo $tmpl->render();
         #include 'view/login/panel.php' ;
         break;

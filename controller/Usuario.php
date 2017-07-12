@@ -28,15 +28,20 @@ switch ( $_GET['acao'] ) {
         #$perfis = $perfil->listarTodos();
         #include 'view/usuario/index.php';
         $data = array('titulo' => 'Painel usuario',
-                      'perfis' => $perfil->listarTodos());
-        $tmpl = new Template('templates/painel.tpl','view/usuario/index.php', $data);
+                      'perfis' => $perfil->listarTodos(),
+                     'header' => 'Usurios',
+                    'sub_header' => 'adicionar');
+
+        $tmpl = new Template('templates/template.tpl','view/usuario/index.php', $data);
         echo $tmpl->render();
         break;
     case 'listar':
         #$listar = $usuario->listarTodos();
         $data = array('titulo' => 'Painel usuario',
-                      'listar' => $usuario->listarTodos());
-        $tmpl = new Template('templates/painel.tpl','view/usuario/listar.php', $data);
+                      'listar' => $usuario->listarTodos(),
+                        'header' => 'Usurios',
+                        'sub_header' => 'listar');
+        $tmpl = new Template('templates/template.tpl','view/usuario/listar.php', $data);
         echo $tmpl->render();
         #include 'view/usuario/listar.php' ;
         break;

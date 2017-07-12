@@ -1,5 +1,3 @@
-
-<div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
         <div class="panel-heading">Novo Usuário -
     <?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } DestroyCookie('msg') ?></div>
@@ -72,4 +70,3 @@
             </form>
         </div>
     </div>
-</div>

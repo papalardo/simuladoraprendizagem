@@ -23,21 +23,25 @@ if ( empty($_GET['acao']) ) { $_GET['acao'] = 'index'; }
 
 switch ( $_GET['acao'] ) {
     case 'index':
-        $tmpl = new Template('templates/painel.tpl','view/perfil/index.php', array('titulo' => 'Painel usuario'));
+        $tmpl = new Template('templates/template.tpl','view/perfil/index.php', array('titulo' => 'Painel usuario',
+                                                                                    'header' => 'Perfil',
+                                                                                    'sub_header' => 'adicionar'));
         echo $tmpl->render();
         break;
     case 'listar':
         #$listar = $perfil->listarTodos();
         $data = array('titulo' => 'Painel usuario',
-                      'listar' => $perfil->listarTodos());
-        $tmpl = new Template('templates/painel.tpl','view/perfil/listar.php', $data);
+                      'listar' => $perfil->listarTodos(),
+                        'header' => 'Perfil',
+                        'sub_header' => 'listar');
+        $tmpl = new Template('templates/template.tpl','view/perfil/listar.php', $data);
         echo $tmpl->render();
         break;
     case 'editar':
         $id = $_GET['id'];
         #$resultado = $perfil->procurar($id);
         $data = array('resultado' => $perfil->procurar($id));
-        $tmpl = new Template('templates/painel.tpl','view/perfil/editar.php', $data);
+        $tmpl = new Template('templates/template.tpl','view/perfil/editar.php', $data);
         echo $tmpl->render();
         #include 'view/perfil/editar.php';
         break;
