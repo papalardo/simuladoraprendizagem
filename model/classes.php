@@ -346,6 +346,16 @@ class RealizarCiclo {
 		}
 }
 
+
+
+
+
+
+
+### Classes abaixou sao para o sistema.
+
+
+
 /*
 
 Classe para templates - em TESTE
@@ -395,7 +405,11 @@ class Template {
 class Uri {
     public function segment($nr){
         $partes_url = explode('/', $_SERVER['REQUEST_URI'] );
-        return $partes_url[$nr];    
+        if (isset($partes_url[$nr])){
+            return $partes_url[$nr];
+        } else {
+            return FALSE;
+        }
         }
     }
 

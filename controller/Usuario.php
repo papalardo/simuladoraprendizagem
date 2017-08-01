@@ -6,7 +6,7 @@ class usuario {
         #parent:: __construct();
         base_url('model/classes.php');
         $usuario = new usuario_model();
-        $perfil = new Perfil();
+        $perfil = new Perfil_model();
     }
 
 public function usarModel($nome_classe){
@@ -15,9 +15,9 @@ public function usarModel($nome_classe){
 }
     
 public function index(){
-        $perfil = new Perfil();
+        $perfil = new usuario_model();
         $data = array('titulo' => 'Painel usuario',
-                      'perfis' => $this->usarModel('usuario_model')->listarTodos(),
+                      'perfis' => $perfil->listarTodos(),
                      'header' => 'Usurios',
                     'sub_header' => 'adicionar');
         $tmpl = new Template('templates/template.tpl','view/usuario/index.php', $data);

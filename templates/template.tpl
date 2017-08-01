@@ -12,13 +12,10 @@
     <link href="<?= base_url('assets/css/bootstrap.css')?>" rel="stylesheet" />
     <!-- FontAwesome Styles-->
     <link href="<?= base_url('assets/css/font-awesome.css')?>" rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-    <link href="<?= base_url('assets/js/morris/morris-0.4.3.min.css')?>" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="<?= base_url('assets/css/custom-styles.css')?>" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href="<?= base_url('assets/fonts/css.css?family=Open+Sans')?>" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="<?= base_url('assets/js/Lightweight-Chart/cssCharts.css')?>">
 </head>
 <body>
     <div id="wrapper">
@@ -91,21 +88,8 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-		  <div class="header">
-                   <h1 class="page-header">
-                        </h1>
-					<!--     	<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Empty</a></li>
-					  <li class="active">Data</li>
-					</ol> -->
-
-		</div>
-            <div id="page-inner">
-
-			  <div class="row">
-
-                    <div class="col-md-12">
+					     <div class="clearBoth"><br/></div>
+		      <div class="col-md-12">
                     <div class="card">
                        <!-- <div class="card-action">
                          Empty Page

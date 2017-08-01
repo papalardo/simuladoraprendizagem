@@ -7,18 +7,16 @@ class Perfil {
         require_once base_url('model/classes.php');
     }
     
+    
     public function index(){
-        $perfil = new Perfil_model();
-         $tmpl = new Template('templates/template.tpl','view/perfil/index.php', array('titulo' => 'Painel usuario',
-                                                                                    'header' => 'Perfil',
-                                                                                    'sub_header' => 'adicionar'));
+         $tmpl = new Template('templates/template.tpl','view/perfil/index.php', array('titulo' => 'Painel usuario'));
         echo $tmpl->render();
     }
     
     public function listar(){
-        $perfil = new Model();
+        $perfil = new Perfil_model();
         $data = array('titulo' => 'Painel usuario',
-                      'listar' => $perfil->set_model('Perfil_model')->listarTodos(),
+                      'listar' => $perfil->listarTodos(),
                         'header' => 'Perfil',
                         'sub_header' => 'listar');
         $tmpl = new Template('templates/template.tpl','view/perfil/listar.php', $data);
@@ -83,31 +81,7 @@ class Perfil {
     }
 }
 
-
 /*
-
-Execução dos métodos
-
-
-if (isset($_POST)) { #Quando algum $_POST for lançado, será verificado qual e executará a função um método (funções logo abaixo).
-    switch (isset($_POST['acao'])){
-        case 'novo':
-            adicionar();
-            break;
-        case 'update':
-            atualizar();
-            break;
-    }
-}
-
-*/
-
-
-/*
-
-Metodos
-
-*/
 function atualizar(){
 $perfil = new Perfil(); #Cria novo objeto
 $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : ''; #Resgata variáveis do formulário
@@ -147,4 +121,6 @@ $perfil = new Perfil();
 
         }
         #redirect('index.php?pag=perfil'); #Tudo feito, redireciona de volta à página, evitando looping de requisições.
-} ?>
+} */
+
+?>
