@@ -43,14 +43,13 @@
 <ul id="dropdown1" class="dropdown-content">
 <li><a href="#"><i class="fa fa-user fa-fw"></i>Meu perfil</a>
 </li>
-<li><a href="?pag=login&acao=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+<li><a href="login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 </li>
 </ul>
 	   <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-home"></i> Home</a>
                     </li>
@@ -58,10 +57,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-user"></i> Perfis<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="?pag=perfil">Novo</a>
+                                <a href="<?= base_url('perfil')?>">Novo</a>
                             </li>
                             <li>
-                                <a href="?pag=perfil&acao=listar">Lista</a>
+                                <a href="<?= base_url('perfil/listar')?>">Lista</a>
                             </li>
                         </ul>
                     </li>
@@ -69,10 +68,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-users"></i> Usuários<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="?pag=usuario">Novo</a>
+                                <a href="<?= base_url('usuario')?>">Novo</a>
                             </li>
                             <li>
-                                <a href="?pag=usuario&acao=listar">Listar</a>
+                                <a href="<?= base_url('usuario/listar')?>">Listar</a>
                             </li>
                             <li>
                                 <a href="#">Nivel 2<span class="fa arrow"></span></a>

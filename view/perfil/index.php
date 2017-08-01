@@ -1,5 +1,5 @@
 
-            <form action="?pag=perfil&acao=novo" method="post" class="form-horizontal">
+            <form action="<?= base_url('perfil/novo') ?>" method="post" class="form-horizontal">
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Descricao</label>
                     <div class="col-sm-8">

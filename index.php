@@ -12,11 +12,6 @@ require_once 'config/DB.php';
 require_once 'model/classes.php';
 
 
-/*
-if ( ! $_GET ){
-    redirect('login');
-}
-*/
 if (SYSTEM_STATUS == 'em_contrucao'){ #So mostra erros se o sistema estiver em desenvolvimento
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
@@ -30,14 +25,19 @@ URI trabalhando..
 */
 
 $uri = new Uri();
-$class = $uri->segment(2);
-$function = $uri->segment(3);
+#$class = $uri->segment(2);
+#$function = $uri->segment(3);
 
 $partes_url = explode('/', $_SERVER['REQUEST_URI'] );
-if ( !$class ){
+if ( $uri->segment(2) == TRUE ){
+    $class = $uri->segment(2);
+} else {
     $class = 'login';
 }
-if ( !$function ){
+
+if ( $uri->segment(3) == TRUE ){
+    $function = $uri->segment(3);
+} else {
     $function = 'index';
 }
 

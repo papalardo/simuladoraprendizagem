@@ -261,7 +261,7 @@ class Item {
 
 
 // Classe Perfil
-class Perfil {
+class Perfil_model {
 
 		private $table = 'tb_perfil';
 		private $id = 'id_per';
@@ -398,4 +398,13 @@ class Uri {
         return $partes_url[$nr];    
         }
     }
+
+class Model {
+    public function set_model($nome_classe){
+    $classe = new $nome_classe;
+    return $classe;
+    }
+}
+
+
 ?>
