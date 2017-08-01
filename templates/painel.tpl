@@ -1,14 +1,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=0" />
-<title><?=$titulo?></title>
+<title><?= $titulo ?></title>
 <meta name="description" content="Simulador Logistica" />
 <meta name="robots" content="index, follow" />
-<link rel="icon" type="image/png" href="<?=$url_base?>libs/imgs/icon.png" />
+<link rel="icon" type="image/png" href="<?= base_url('imgs/icon.png')?>" />
 <meta name="author" content="SENAC" />
-<link href="<?= base_url('libs/css/index.css')?>" rel="stylesheet" />
-<link href="<?= base_url('libs/css/bootstrap.css')?>" rel="stylesheet" />
-<script src="<?= base_url('libs/js/jquery.js')?>"></script>
-<script src="<?= base_url('libs/js/bootstrap.js')?>"></script>
+<link href="<?= base_url('assets/css/index.css')?>" rel="stylesheet" />
+<link href="<?= base_url('assets/css/bootstrap.css')?>" rel="stylesheet" />
+<script src="<?= base_url('assets/js/jquery.js')?>"></script>
+<script src="<?= base_url('assets/js/bootstrap.js')?>"></script>
 
 
 <style>
@@ -171,7 +171,7 @@ body {
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-                    <?php if(isset($_SESSION['avatar'])):?>
+                    <?php if(isset($_SESSION['avatar'])): ?>
 					<img src="<?= base_url($_SESSION['avatar'])?>" class="img-responsive" alt="">
                     <?php else: ?>
 					<img src="<?= base_url('user-photo/1.jpg')?>" class="img-responsive" alt="">

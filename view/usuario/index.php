@@ -3,7 +3,7 @@
     <?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } DestroyCookie('msg') ?></div>
         <div class="panel-body">
 
-            <form action="?pag=usuario&acao=novo" method="post" class="form-horizontal">
+            <form action="<?= base_url('usuario/novo') ?>" method="post" class="form-horizontal">
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Nome</label>
                     <div class="col-sm-8">

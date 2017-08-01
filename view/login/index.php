@@ -14,7 +14,7 @@
 <div class="login">
     <div class="panel panel-default">
             <div class="panel-body">
-                <form action="?pag=login&acao=login" method="post">
+                <form action="<?= base_url('login/entrar')?>" method="post">
                 <div class="form-group">
                     <label>Usuário</label>
                     <input name="username" type="text" class="form-control" autocomplete="off">

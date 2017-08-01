@@ -3,7 +3,7 @@
 // Classe Usuario
 // Autor: Pablo (modificada pelo professor glauco)
 // A classe Usuario é o modelo a ser seguido para construir as outras classes
-class Usuario {
+class  usuario_model {
 	protected $table = 'tb_usuario'; // nome da tabela do banco de dados
 	protected $id = 'id_usu'; // atributo chave primária da tabela do banco de dados
 
@@ -71,6 +71,8 @@ class Usuario {
     Metodo procurar($id) é utilizado para usar o ID, neste caso, procurar na coluna $this->id
 
     */
+    
+    
 	public function procurar($id) {
 		$sql = "SELECT * FROM $this->table INNER JOIN tb_perfil ON ( $this->table.TB_PERFIL_id_per = tb_perfil.id_per) WHERE $this->id = :id";
 		$stmt = DB::prepare ( $sql );
@@ -389,4 +391,11 @@ class Template {
     }
 }
 
+
+class Uri {
+    public function segment($nr){
+        $partes_url = explode('/', $_SERVER['REQUEST_URI'] );
+        return $partes_url[$nr];    
+        }
+    }
 ?>

@@ -1,9 +1,9 @@
 <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
         <div class="panel-heading">  <center> Atualizar Cadastro
-              <?php if (isset($_COOKIE['msg'])){ echo ' - ' . $_COOKIE['msg']; } setcookie('msg', NULL, time()-1) ?></center>  </div>
+              <?php if (isset($_COOKIE['msg'])){ echo $_COOKIE['msg']; } setcookie('msg', NULL, time()-1) ?></center>  </div>
         <div class="panel-body">
-            <form action="?pag=usuario&acao=atualizar&id=<?= $resultado->id_usu ?>" method="post" class="form-horizontal">
+            <form action="<?= base_url('usuario/atualizar/' .$resultado->id_usu) ?>" method="post" class="form-horizontal">
 
                 <div class="form-group">
                     <label for="name" class="control-label col-sm-4">Nome</label>

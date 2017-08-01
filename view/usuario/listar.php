@@ -27,8 +27,8 @@
                 ?>
             <br>
             <div class="btn-group">
-                <a href="<?= base_url('index.php?pag=usuario&acao=deletar&id='.$dados->id_usu) ?>" class="btn btn-xs btn-danger">Deletar</a>
-                <a href="<?= base_url('index.php?pag=usuario&acao=editar&id='.$dados->id_usu) ?>" class="btn btn-xs btn-warning">Editar</a>
+                <a href="<?= base_url('usuario/deletar/'.$dados->id_usu) ?>" class="btn btn-xs btn-danger">Deletar</a>
+                <a href="<?= base_url('usuario/editar/'.$dados->id_usu) ?>" class="btn btn-xs btn-warning">Editar</a>
             </div>
             </center>
             </td>
